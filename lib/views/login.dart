@@ -1,7 +1,7 @@
-import 'package:basic/services/user_services.dart';
+import 'package:basic/views/register.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controller/login_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -31,19 +31,20 @@ class LoginScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                login(loginController.emailController.value.text, loginController.passwordController.value.text);
+              onPressed: () async {
+                final SharedPreferences pref = await SharedPreferences.getInstance();
+                loginController.login(loginController.emailController.value.text, loginController.passwordController.value.text);
                 /* _.isLoggedIn.value = !_.isLoggedIn.value;
                     Get.snackbar('Hi', _.isLoggedIn.value.toString(), snackPosition: SnackPosition.BOTTOM);*/
                 Get.snackbar('Hi', loginController.emailController.value.text.toString(), snackPosition: SnackPosition.BOTTOM);
-
+                print(await pref.getString('token') ?? '');
                 //_.login();
               },
               child: Text('Login'),
             ),
             TextButton(
               onPressed: () {
-                // TODO: Go to the sign up screen
+                Get.to(SignUpScreen());
               },
               child: Text('Sign Up'),
             ),

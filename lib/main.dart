@@ -1,34 +1,24 @@
-import 'dart:convert';
-
-import 'package:basic/constant.dart';
-import 'package:basic/controller/login_controller.dart';
-import 'package:basic/services/user_services.dart';
-import 'package:basic/views/login.dart';
+import 'package:basic/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'models/UserModel.dart';
-import 'models/data.dart';
-
+import 'controller/login_controller.dart';
 
 LoginController loginController = Get.put(LoginController());
 var data = ''.obs;
 void main() {
-
-  runApp(myApp());
+  runApp(const MyApp());
 }
 
-class myApp extends StatefulWidget {
-  @override
-  State<myApp> createState() => _myAppState();
-}
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-class _myAppState extends State<myApp> {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    checkLogin();
+    return const GetMaterialApp(
       home: SafeArea(
-          child: LoginScreen()/*Column(
+          child: Scaffold(
+              body: CircularProgressIndicator()) /*Column(
             children: [
               Obx(() => Text(data.value)),
               Container(
@@ -59,12 +49,7 @@ class _myAppState extends State<myApp> {
               ),
             ],
           ),*/
-      ),
+          ),
     );
-  }
-
-  @override
-  void initState() {
-    getUserDetails();
   }
 }
