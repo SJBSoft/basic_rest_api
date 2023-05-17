@@ -7,6 +7,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        logout();
+      }, child: Icon(Icons.logout)),
       body: SafeArea(
           child: SingleChildScrollView(
             child: Column(

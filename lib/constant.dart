@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const websiteUrl = 'http://10.0.2.2:8800/';
 const baseURL = 'http://10.0.2.2:8800/api';
 const loginApi = '$baseURL/login';
+const logoutApi = '$baseURL/logout';
 const registerApi = '$baseURL/register';
 const allUser = '$baseURL/users';
 const userApi = '$baseURL/users/';

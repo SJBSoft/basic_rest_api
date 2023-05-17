@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:basic/views/dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -36,6 +37,7 @@ class LoginController extends GetxController {
           final SharedPreferences pref = await SharedPreferences.getInstance();
           await pref.setString('token', jsonResponse['token']);
           //print(jsonResponse['token']);
+          Get.to(()=>DashboardScreen());
           break;
         case 422:
           print('422');

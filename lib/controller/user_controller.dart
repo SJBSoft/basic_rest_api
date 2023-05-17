@@ -24,9 +24,9 @@ Future<User> getUserData() async {
     Uri.parse(userDataApi),
     headers: {'Accept': 'Application/json', 'Authorization': 'Bearer $token'},
   );
-  if(response.statusCode == 200){
+  if (response.statusCode == 200) {
     return User.fromJson(jsonDecode(response.body)['user']);
-  }else{
+  } else {
     throw Exception('Failed To laod');
   }
 }
@@ -52,10 +52,24 @@ getUserDetails() async {
 Future<List<User>> getAllUser() async {
   final response = await http.get(Uri.parse(allUser));
   if (response.statusCode == 200) {
-    print(response.body);
     List jsonResponse = jsonDecode(response.body)['users'];
     return jsonResponse.map((e) => User.fromJson(e)).toList();
   } else {
     throw Exception('Unexpected Error Occurs');
+  }
+}
+
+logout() async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  String token = pref.getString('token') ?? '';
+  final response =
+      await http.get(Uri.parse(logoutApi), headers: {'Accept': 'Accept/json',
+        'Authorization': 'Bearer $token'
+      });
+  print(response.body);
+  if(response.statusCode == 200){
+    pref.setString('token', '');
+    print(jsonDecode(response.body)['message']);
+    checkLogin();
   }
 }
